@@ -29,3 +29,34 @@ C:\Users\Sam\Source\Repos\ConsoleApp2\ConsoleApp2\bin\Debug\net5.0\runtimes\win-
 C:\Users\Sam\Source\Repos\ConsoleApp2\ConsoleApp2\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
 C:\Users\Sam\Source\Repos\ConsoleApp2\ConsoleApp2\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Sam\Source\Repos\ConsoleApp2\ConsoleApp2\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\ConsoleApp2.exe
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\ConsoleApp2.deps.json
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\ConsoleApp2.runtimeconfig.json
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\ConsoleApp2.runtimeconfig.dev.json
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\ConsoleApp2.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\ref\ConsoleApp2.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\ConsoleApp2.pdb
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\DocumentFormat.OpenXml.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\SpreadsheetLight.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\System.Data.SqlClient.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\System.Drawing.Common.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\System.IO.Packaging.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\obj\Debug\net5.0\ConsoleApp2.csproj.AssemblyReference.cache
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\obj\Debug\net5.0\ConsoleApp2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\obj\Debug\net5.0\ConsoleApp2.AssemblyInfoInputs.cache
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\obj\Debug\net5.0\ConsoleApp2.AssemblyInfo.cs
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\obj\Debug\net5.0\ConsoleApp2.csproj.CoreCompileInputs.cache
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\obj\Debug\net5.0\ConsoleApp2.csproj.CopyComplete
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\obj\Debug\net5.0\ConsoleApp2.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\obj\Debug\net5.0\ref\ConsoleApp2.dll
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\obj\Debug\net5.0\ConsoleApp2.pdb
+C:\Users\Sam\Music\Messanger\Excel reader\ExcelReaderMessanger\ExcelReaderMessanger\obj\Debug\net5.0\ConsoleApp2.genruntimeconfig.cache
