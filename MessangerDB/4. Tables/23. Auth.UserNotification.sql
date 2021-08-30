@@ -7,11 +7,11 @@ GO
 -- TFS Task:	  Create Registration Tables
 -- ============================================================================================
 
-IF (OBJECT_ID('Profile.UserNotification') IS NOT NULL)
-  DROP TABLE Profile.UserNotification
+IF (OBJECT_ID('Auth.UserNotification') IS NOT NULL)
+  DROP TABLE Auth.UserNotification
 GO
 
-CREATE TABLE Profile.UserNotification
+CREATE TABLE Auth.UserNotification
 (
 	UserNotificationID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 	UserNotification VARCHAR(250) NOT NULL,

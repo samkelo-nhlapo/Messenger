@@ -4,15 +4,17 @@ GO
 --================================================================================================
 --Author:		Samkelo Nhlapo
 --Create date	04/08/2021
---Description	Creating Recipient Table
---TFS Task		Create Recipient 
+--Description	Creating UserGroups Table
+--TFS Task		Create UserGroups 
 --================================================================================================
 
-CREATE TABLE Profile.Recipient
+CREATE TABLE Groups.UserGroups
 (
-	RecipientID UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID(),
+	UserGroupID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 	UserIDFK UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES Profile.Users(UserID),
-	UserGroupIDFK INT NOT NULL FOREIGN KEY REFERENCES Groups.UserGroups(UserGroupID),
-	IsRead BIT NOT NULL
+	GroupIDFK INT NOT NULL FOREIGN KEY REFERENCES Groups.Groups(GroupID),
+	IsActive BIT NOT NULL,
+	Created_at DATETIME NOT NULL,
+	UpdatedDate DATETIME NOT NULL
 )
 GO

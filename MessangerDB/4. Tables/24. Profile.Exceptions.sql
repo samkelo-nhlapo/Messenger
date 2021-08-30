@@ -7,11 +7,11 @@ GO
 -- TFS Task:	  Create Registration Tables
 -- ============================================================================================
 
-IF (OBJECT_ID('Profile.Exceptions') IS NOT NULL)
-  DROP TABLE Profile.Exceptions
+IF (OBJECT_ID('Auth.Exceptions') IS NOT NULL)
+  DROP TABLE Auth.Exceptions
 GO
 
-CREATE TABLE Profile.Exceptions
+CREATE TABLE Auth.Exceptions
 (
 	ExceptionId INT PRIMARY KEY IDENTITY(1,1),
 	ErrorSchema VARCHAR(100) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE Profile.Exceptions
 	ErrorLine VARCHAR(MAX) NOT NULL,
 	ErrorMessage VARCHAR(MAX) NOT NULL,
 	ErrorDate DATETIME NOT NULL,
-	UserNotificationID INT NOT NULL FOREIGN KEY REFERENCES Profile.UserNotification(UserNotificationID)
+	UserNotificationID INT NOT NULL FOREIGN KEY REFERENCES Auth.UserNotification(UserNotificationID)
 )
 
 GO

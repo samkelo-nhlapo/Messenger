@@ -1,9 +1,14 @@
-
-CREATE DATABASE Messanger
-GO
-
 USE Messanger
 GO
+
+/*
+	--================================================================================================
+	--Author:		Samkelo Nhlapo
+	--Create date	02/08/2021
+	--Description	Creating Filegroup
+	--TFS Task		Create filegroup
+	--================================================================================================
+*/
 
 ALTER DATABASE Messanger ADD FILEGROUP MessangerData
 GO

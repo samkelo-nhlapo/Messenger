@@ -3,18 +3,18 @@ GO
 
 --================================================================================================
 --Author:		Samkelo Nhlapo
---Create date	04/08/2021
+--Create date	26/08/2021
 --Description	Creating Groups Table
---TFS Task		Create Groups 
+--TFS Task		Create Groups
 --================================================================================================
 
 CREATE TABLE Groups.Groups
 (
-	GroupID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-	Name VARCHAR(50) NOT NULL,
-	Members INT NOT NULL,
-	IsActive BIT NOT NULL,
-	Created_at DATETIME NOT NULL,
-	UpdatedDate DATETIME NOT NULL
+	GroupID INT NOT NULL PRIMARY KEY IDENTITY (1,1),
+	GroupName VARCHAR(250) NOT NULL,
+	CreatedBy VARCHAR(250) NOT NULL,
+	TotalMembers INT NOT NULL,
+	CreatedDate DATETIME NOT NULL,
+	UpdateDate DATETIME NOT NULL
 )
 GO
