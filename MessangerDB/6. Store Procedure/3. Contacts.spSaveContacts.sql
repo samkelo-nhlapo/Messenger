@@ -12,16 +12,20 @@ GO
 
 CREATE OR ALTER PROCEDURE spSaveContacts
 (
-@PhoneNumber VARCHAR(250),
-@Email VARCHAR(250),
-@ContactTypeID INT
+	@PhoneNumber VARCHAR(250),
+	@Email VARCHAR(250),
+	@ContactTypeID INT
 )
 AS
 BEGIN
 	
+	SET NOCOUNT ON
+
 	DECLARE @DEFAULTDATE DATETIME = GETDATE(),
 			@ContactIsActive BIT = 1
-
+	
+	BEGIN TRAN
+	
 	BEGIN TRY
 
 		IF NOT EXISTS

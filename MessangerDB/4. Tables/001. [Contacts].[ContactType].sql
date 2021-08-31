@@ -8,7 +8,7 @@ GO
 --TFS Task		Create Contacts 
 --================================================================================================
 
-CREATE TABLE Profile.ContactType
+CREATE TABLE Contacts.ContactType
 (
 	ContactTypeID INT NOT NULL PRIMARY KEY IDENTITY (1,1),
 	Description VARCHAR(20) NOT NULL,

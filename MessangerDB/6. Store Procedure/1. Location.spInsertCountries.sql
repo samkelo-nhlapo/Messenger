@@ -1,6 +1,13 @@
 USE Messanger
 GO
 
+--================================================================================================
+--	Author:		Samkelo Nhlapo
+--	Create date	02/08/2021
+--	Description	Insert Countries Proc
+--	TFS Task	Insert Into Table
+--================================================================================================
+
 CREATE OR ALTER PROC Location.spInsertCountries
 (
 	@Country VARCHAR(250),
@@ -12,9 +19,12 @@ CREATE OR ALTER PROC Location.spInsertCountries
 AS 
 BEGIN
 	
+	SET NOCOUNT ON
+
 	DECLARE @DefaultDate DATETIME = GETDATE(),
 			@IsActive BIT = 0
-
+	
+	BEGIN TRAN
 
 	IF NOT EXISTS(SELECT * FROM Location.Countries WHERE CountryDescripition = @Country )
 	BEGIN
@@ -35,6 +45,10 @@ BEGIN
 			)
 			VALUES(@Country, @Alpha2Code, @Alpha3Code, @Numeric, @IsActive, @DefaultDate )
 
+			SET @Message = ''
+
+			COMMIT TRAN
+
 		END ELSE
 		BEGIN
 
@@ -51,13 +65,19 @@ BEGIN
 			
 			SET @Message = ''
 
+			COMMIT TRAN
+
 		END
 	END
 	ELSE
 	BEGIN
 		
-		SET @Message = 'Error with inserting the code please check stored procedure'
+		ROLLBACK TRAN
+
+		SET @Message = 'Error inserting the Countries please check stored procedure'
 
 	END
+
+	SET NOCOUNT OFF
 
 END
