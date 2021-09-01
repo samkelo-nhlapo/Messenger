@@ -10,26 +10,31 @@ GO
 ================================================================================
 */
 
-CREATE OR ALTER PROCEDURE spSaveContacts
+CREATE OR ALTER PROCEDURE Contacts.spSaveUserContacts
 (
-	@PhoneNumber VARCHAR(250),
-	@Email VARCHAR(250),
-	@ContactTypeID INT
+	@UserID UNIQUEIDENTIFIER,
+	@ContactType INT,
+	@PhoneNumber VARCHAR(MAX),
+	@PhoneTypeID INT,
+	@Email VARCHAR(MAX),
+	@EmailType INT,
+	@ContactIsActive BIT,
+	@Message VARCHAR (MAX) OUTPUT
 )
 AS
 BEGIN
 	
 	SET NOCOUNT ON
 
-	DECLARE @DEFAULTDATE DATETIME = GETDATE(),
-			@ContactIsActive BIT = 1
+	DECLARE @DEFAULTDATE DATETIME = GETDATE()
 	
 	BEGIN TRAN
 	
 	BEGIN TRY
 
 		IF NOT EXISTS
-		(	SELECT PU.FirstName, PC.PhoneNumber, PC.Email 
+		(	
+			SELECT PU.FirstName, PC.PhoneNumber, PC.Email 
 			FROM Profile.Contacts AS PC 
 			INNER JOIN Profile.Users AS PU 
 			ON  PC.ContactID = PU.ContactIDFK
@@ -43,7 +48,8 @@ BEGIN
 
 	END TRY
 	BEGIN CATCH
-
+		
+		-
 
 	END CATCH
 END
