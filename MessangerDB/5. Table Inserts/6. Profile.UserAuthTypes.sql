@@ -4,13 +4,14 @@ GO
 --================================================================================================
 --	Author:		Samkelo Nhlapo
 --	Create date	02/09/2021
---	Description	Inserting ContactTypes Table
+--	Description	Inserting UserAuthTypes Table
 --	TFS Task	Insert Data
 --================================================================================================
 
-DECLARE @DefaultDate DATETIME = GETDATE()
+DECLARE @IsActive BIT = 1
 
-INSERT INTO Contacts.ContactType(Description, UpdatedDate)
-VALUES('Primary Contact', @DefaultDate),
-	('Secondary Contact', @DefaultDate),
-	('Alternative Contact', @DefaultDate)
+INSERT INTO Profile.UserAuthTypes(UserTypeDescription, UserTypeIsActive)
+VALUES('Administrator', @IsActive ),
+	('System', @IsActive),
+	('Internal-EndUser', @IsActive),
+	('External-EndUser',@IsActive)
