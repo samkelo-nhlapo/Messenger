@@ -25,8 +25,6 @@ BEGIN
 	
 	SET NOCOUNT ON
 
-	BEGIN TRAN
-
 	DECLARE @DEFAULTDATE DATETIME = GETDATE(),
 			@IsActive BIT = 1,
 			@ErrorSchema VARCHAR(MAX),
@@ -39,17 +37,15 @@ BEGIN
 			@ErrorDate DATETIME
 	
 	
-	BEGIN TRY
-		
-		/*IF DATA DOES NOT EXISTS INSERT*/
-		IF NOT EXISTS ( 
-						SELECT CP.PhoneNumber, CE.EmailDescription
-						FROM Profile.Users AS PU WITH (NOLOCK)
-						JOIN Contacts.Contacts AS CC WITH (NOLOCK) ON PU.ContactIDFK = CC.ContactID
+	
+	BEGIN TRY	
+		/*IF PHONE AND EMAIL DOES NOT EXISTS INSERT*/
+		IF NOT EXISTS (SELECT CP.PhoneNumber, CE.EmailDescription
+						FROM Contacts.Contacts AS CC WITH (NOLOCK) 
 						JOIN Contacts.Phones AS CP WITH (NOLOCK) ON CC.PhoneIDFK = CP.PhoneID
 						JOIN Contacts.Emails AS CE WITH (NOLOCK) ON CC.EmailIDFK = CE.EmailID 
 						WHERE CP.PhoneNumber = @PhoneNumber AND CE.EmailDescription = @Email
-					  )
+					)
 		BEGIN
 			
 			/*INSERTING PHONE NUMBER*/
@@ -84,54 +80,45 @@ BEGIN
 			)
 			VALUES(@PhoneNumber, @Email, @ContactType, @IsActive, @DEFAULTDATE)
 
-			SET @Message = (SELECT * FROM Auth.UserNotification WITH (NOLOCK) WHERE UserNotificationID = 1)
+			SET @Message = (SELECT UserNotification FROM Auth.UserNotification (NOLOCK) WHERE UserNotificationID = 1)
 
-			COMMIT TRAN
 
-		END ELSE
-		BEGIN
 
-			IF NOT EXISTS (SELECT 1 FROM Contacts.Contacts AS CC WITH (NOLOCK) 
-							JOIN Contacts.Phones AS CP WITH (NOLOCK) ON CC.PhoneIDFK = CP.PhoneID
-							JOIN Contacts.Emails AS CE WITH (NOLOCK) ON CC.EmailIDFK = CE.EmailID 
-							WHERE CP.PhoneNumber = @PhoneNumber OR CE.EmailDescription = @Email
-							) 				
-			BEGIN 
+		END 
+		
+		/*IF ONE EXISTS */
+		IF NOT EXISTS (SELECT 1 FROM Contacts.Contacts AS CC WITH (NOLOCK) 
+						JOIN Contacts.Phones AS CP WITH (NOLOCK) ON CC.PhoneIDFK = CP.PhoneID
+						JOIN Contacts.Emails AS CE WITH (NOLOCK) ON CC.EmailIDFK = CE.EmailID 
+						WHERE CP.PhoneNumber = @PhoneNumber OR CE.EmailDescription = @Email
+						) 				
+		BEGIN 
 
-				IF NOT EXISTS (SELECT 1 FROM Contacts.Phones WITH (NOLOCK) WHERE PhoneNumber = @PhoneNumber)
-				BEGIN
-
-					UPDATE Contacts.Phones 
-					SET PhoneNumber = @PhoneNumber 
-					WHERE PhoneID = @UserID
-
-				END ELSE
-				BEGIN
-
-					SET @Message = (SELECT * FROM Auth.UserNotification WHERE UserNotificationID = 6)
-				END
-
-				IF NOT EXISTS (SELECT 1 FROM Contacts.Emails WITH (NOLOCK) WHERE EmailDescription = @Email)
-				BEGIN
-
-					UPDATE Contacts.Emails 
-					SET EmailDescription = @Email
-					WHERE EmailID = @UserID
-
-				END ELSE
-				BEGIN
-
-					SET @Message = (SELECT * FROM Auth.UserNotification WHERE UserNotificationID = 6)
-				END
+			IF NOT EXISTS (SELECT 1 FROM Contacts.Phones WITH (NOLOCK) WHERE PhoneNumber = @PhoneNumber)
+			BEGIN
 				
+				INSERT INTO Contacts.Phones(PhoneNumber, PhoneTypeIDFK, PhoneIsActive, UpdatedDate)
+				VALUES(@PhoneNumber, @PhoneTypeID, @IsActive, @DEFAULTDATE)
 
+
+			END 
+
+			IF NOT EXISTS (SELECT 1 FROM Contacts.Emails WITH (NOLOCK) WHERE EmailDescription = @Email)
+			BEGIN
+				
+				INSERT INTO Contacts.Emails(EmailDescription, EmailTypeIDFK, EmailIsActive, UpdatedDate)
+				VALUES(@Email, @EmailType, @IsActive, @DEFAULTDATE)
+
+			END ELSE
+			BEGIN
+
+				SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 6)
 			END
 
+			
 		END
-
 	END TRY
 	BEGIN CATCH
-		
 		
 
 		SET @ErrorSchema = OBJECT_SCHEMA_NAME(@@PROCID)
