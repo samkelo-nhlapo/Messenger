@@ -12,7 +12,6 @@ GO
 
 CREATE OR ALTER PROCEDURE Contacts.spSaveUserContacts
 (
-	@UserID UNIQUEIDENTIFIER,
 	@ContactType INT,
 	@PhoneNumber VARCHAR(12),
 	@PhoneTypeID INT,
@@ -22,6 +21,7 @@ CREATE OR ALTER PROCEDURE Contacts.spSaveUserContacts
 )
 AS
 BEGIN
+
 	
 	SET NOCOUNT ON
 
@@ -36,7 +36,7 @@ BEGIN
 			@ErrorMessage VARCHAR(MAX),
 			@ErrorDate DATETIME
 	
-	
+	BEGIN TRAN
 	
 	BEGIN TRY	
 		/*IF PHONE AND EMAIL DOES NOT EXISTS INSERT*/
@@ -78,45 +78,52 @@ BEGIN
 				ContactIsActive, 
 				UpdatedDate
 			)
-			VALUES(@PhoneNumber, @Email, @ContactType, @IsActive, @DEFAULTDATE)
+			VALUES((SELECT PhoneID FROM Contacts.Phones WHERE PhoneNumber = @PhoneNumber), (SELECT EmailID FROM Contacts.Emails WHERE EmailDescription = @Email), (SELECT ContactTypeID FROM Contacts.ContactType WHERE ContactTypeID = @ContactType) , @IsActive, @DEFAULTDATE)
 
 			SET @Message = (SELECT UserNotification FROM Auth.UserNotification (NOLOCK) WHERE UserNotificationID = 1)
 
+			COMMIT TRAN
 
-
-		END 
-		
-		/*IF ONE EXISTS */
-		IF NOT EXISTS (SELECT 1 FROM Contacts.Contacts AS CC WITH (NOLOCK) 
-						JOIN Contacts.Phones AS CP WITH (NOLOCK) ON CC.PhoneIDFK = CP.PhoneID
-						JOIN Contacts.Emails AS CE WITH (NOLOCK) ON CC.EmailIDFK = CE.EmailID 
-						WHERE CP.PhoneNumber = @PhoneNumber OR CE.EmailDescription = @Email
-						) 				
-		BEGIN 
-
+		END ELSE
+		BEGIN
+			/*IF ONE EXISTS */
+			--IF EXISTS (SELECT CP.PhoneNumber, CE.EmailDescription
+			--				FROM Contacts.Contacts AS CC WITH (NOLOCK) 
+			--				JOIN Contacts.Phones AS CP WITH (NOLOCK) ON CC.PhoneIDFK = CP.PhoneID
+			--				JOIN Contacts.Emails AS CE WITH (NOLOCK) ON CC.EmailIDFK = CE.EmailID 
+			--				WHERE CP.PhoneNumber = @PhoneNumber OR CE.EmailDescription = @Email
+			--				) 				
+			--BEGIN 
+			/*IF PHONE DOES NOT EXISTS*/
 			IF NOT EXISTS (SELECT 1 FROM Contacts.Phones WITH (NOLOCK) WHERE PhoneNumber = @PhoneNumber)
 			BEGIN
 				
 				INSERT INTO Contacts.Phones(PhoneNumber, PhoneTypeIDFK, PhoneIsActive, UpdatedDate)
 				VALUES(@PhoneNumber, @PhoneTypeID, @IsActive, @DEFAULTDATE)
 
-
+				SET @Message = 'Phone number saved successfully'
 			END 
-
+			/*IF EMAIL DOES NOT EXISTS*/
 			IF NOT EXISTS (SELECT 1 FROM Contacts.Emails WITH (NOLOCK) WHERE EmailDescription = @Email)
 			BEGIN
 				
 				INSERT INTO Contacts.Emails(EmailDescription, EmailTypeIDFK, EmailIsActive, UpdatedDate)
 				VALUES(@Email, @EmailType, @IsActive, @DEFAULTDATE)
 
+				SET @Message = 'Email saved successfully'
+
 			END ELSE
 			BEGIN
 
 				SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 6)
+
+				ROLLBACK TRAN
 			END
 
-			
-		END
+			COMMIT TRAN
+				
+			END
+		--END
 	END TRY
 	BEGIN CATCH
 		
@@ -132,6 +139,8 @@ BEGIN
 		
 
 		EXEC [Auth].[spLogExceptions] @ErrorSchema, @ErrorProc, @ErrorNumber, @ErrorState, @ErrorSeverity, @ErrorLine, @ErrorMessage, @ErrorDate, 2
+
+		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 2)
 
 		ROLLBACK TRAN
 
