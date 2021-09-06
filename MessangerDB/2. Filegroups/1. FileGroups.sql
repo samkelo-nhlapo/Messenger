@@ -1,4 +1,4 @@
-USE Messanger
+USE Messenger
 GO
 
 /*
@@ -10,24 +10,24 @@ GO
 	--================================================================================================
 */
 
-ALTER DATABASE Messanger ADD FILEGROUP MessangerData
+ALTER DATABASE Messenger ADD FILEGROUP MessengerData
 GO
 
-USE Messanger
+USE Messenger
 GO
 
-ALTER DATABASE Messanger 
+ALTER DATABASE Messenger 
 ADD FILE 
 (
-	NAME = MessangerDataFile,
+	NAME = MessengerDataFile,
 	FILENAME = 'D:\DB BackUp\SQL_DB_FILES\MessangerData.mdf'
 )
-TO FILEGROUP MessangerData
+TO FILEGROUP MessengerData
 GO
 
-ALTER DATABASE Messanger 
+ALTER DATABASE Messenger 
 	ADD LOG FILE
 	(
-		NAME = MessangerLog,
+		NAME = MessengerLog,
 		FILENAME = 'D:\DB BackUp\SQL_DB_FILES\MessangerLog.ldf'
 	)

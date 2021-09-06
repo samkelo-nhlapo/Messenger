@@ -1,4 +1,4 @@
-USE Messanger
+USE Messenger
 GO
 
 INSERT INTO Location.Provinces (ProvinceDecription,ProvinceIsActive,UpdateDate,CountryIdFk)

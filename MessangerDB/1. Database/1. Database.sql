@@ -8,5 +8,5 @@
 
 */
 
-CREATE DATABASE Messanger
+CREATE DATABASE Messenger
 GO

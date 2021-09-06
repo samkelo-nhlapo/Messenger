@@ -50,7 +50,7 @@ namespace ExcelReader
                     Alpha3Code = doc.GetCellValueAsString(rowIndex, 3);
                     Numeric = doc.GetCellValueAsInt32(rowIndex, 4);
 
-                    using (SqlConnection conn = new SqlConnection("Server=localhost,1433;Database=Messanger;User Id=sa;Password=Orlando123;"))
+                    using (SqlConnection conn = new SqlConnection("Server=localhost,1433;Database=Messenger;User Id=sa;Password=Orlando123;"))
                     {
                         //Console.WriteLine("Connected to sql");
                         SqlCommand command = new SqlCommand("Location.spInsertCountries", conn);

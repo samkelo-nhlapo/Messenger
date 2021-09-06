@@ -1,4 +1,4 @@
-USE Messanger
+USE Messenger
 GO
 
 --================================================================================================
@@ -11,9 +11,10 @@ GO
 CREATE TABLE Profile.MessageRecipient
 (
 	MessageRecipientID UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID(),
-	RecipientIDFK UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES Profile.Users(UserID),
-	Recipient_GroupID INT NOT NULL FOREIGN KEY REFERENCES Groups.UserGroups(UserGroupID),
 	MessageIDFK UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES Profile.Messages(MessagesID),
+	CreatorIDFK UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES Profile.Users(UserID),
+	RecipientIDFK UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES Profile.Users(UserID),
+	GroupID_Recipient INT NOT NULL FOREIGN KEY REFERENCES Groups.UserGroups(UserGroupID),
 	MediaIDFK UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES Media.Media(MediaID),
 	IsRead BIT NOT NULL,
 	UpdateDate DATETIME NOT NULL
