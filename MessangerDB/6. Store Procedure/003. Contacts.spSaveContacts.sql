@@ -34,7 +34,8 @@ BEGIN
 			@ErrorSeverity VARCHAR(MAX),
 			@ErrorLine VARCHAR(MAX),
 			@ErrorMessage VARCHAR(MAX),
-			@ErrorDate DATETIME
+			@ErrorDate DATETIME,
+			@GUID UNIQUEIDENTIFIER 
 	
 	BEGIN TRAN
 	
@@ -84,46 +85,52 @@ BEGIN
 
 			COMMIT TRAN
 
-		END ELSE
+		END ELSE 
 		BEGIN
-			/*IF ONE EXISTS */
-			--IF EXISTS (SELECT CP.PhoneNumber, CE.EmailDescription
-			--				FROM Contacts.Contacts AS CC WITH (NOLOCK) 
-			--				JOIN Contacts.Phones AS CP WITH (NOLOCK) ON CC.PhoneIDFK = CP.PhoneID
-			--				JOIN Contacts.Emails AS CE WITH (NOLOCK) ON CC.EmailIDFK = CE.EmailID 
-			--				WHERE CP.PhoneNumber = @PhoneNumber OR CE.EmailDescription = @Email
-			--				) 				
-			--BEGIN 
+			--SET NEW GUID
+			SET @GUID = NEWID()
+
 			/*IF PHONE DOES NOT EXISTS*/
 			IF NOT EXISTS (SELECT 1 FROM Contacts.Phones WITH (NOLOCK) WHERE PhoneNumber = @PhoneNumber)
 			BEGIN
 				
-				INSERT INTO Contacts.Phones(PhoneNumber, PhoneTypeIDFK, PhoneIsActive, UpdatedDate)
-				VALUES(@PhoneNumber, @PhoneTypeID, @IsActive, @DEFAULTDATE)
+				UPDATE Contacts.Phones SET 
+					PhoneNumber = @PhoneNumber,
+					PhoneTypeIDFK = @PhoneTypeID,
+					PhoneIsActive = @IsActive,
+					UpdatedDate = @DEFAULTDATE
+					WHERE PhoneID = @GUID
+					
 
 				SET @Message = 'Phone number saved successfully'
-			END 
-			/*IF EMAIL DOES NOT EXISTS*/
-			IF NOT EXISTS (SELECT 1 FROM Contacts.Emails WITH (NOLOCK) WHERE EmailDescription = @Email)
+			
+			END ELSE
+			IF NOT EXISTS (SELECT 1 FROM Contacts.Emails WITH (NOLOCK) WHERE EmailDescription = @Email) /*IF EMAIL DOES NOT EXISTS*/
 			BEGIN
 				
-				INSERT INTO Contacts.Emails(EmailDescription, EmailTypeIDFK, EmailIsActive, UpdatedDate)
-				VALUES(@Email, @EmailType, @IsActive, @DEFAULTDATE)
+				UPDATE Contacts.Emails SET
+					EmailDescription = @Email,
+					EmailTypeIDFK = @EmailType,
+					EmailIsActive = @IsActive,
+					UpdatedDate = @DEFAULTDATE
+					WHERE EmailID = @GUID
 
 				SET @Message = 'Email saved successfully'
+				
 
 			END ELSE
 			BEGIN
-
-				SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 6)
-
+				
+				SET @Message = 'Check Email AND Phone'
+				--SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 6)
+				
 				ROLLBACK TRAN
 			END
 
 			COMMIT TRAN
 				
-			END
-		--END
+		END
+		
 	END TRY
 	BEGIN CATCH
 		
