@@ -40,7 +40,7 @@ BEGIN
 	BEGIN TRAN
 	
 	BEGIN TRY	
-		/*IF PHONE AND EMAIL DOES NOT EXISTS INSERT*/
+		--/*IF PHONE AND EMAIL DOES NOT EXISTS INSERT*/
 		IF NOT EXISTS (SELECT CP.PhoneNumber, CE.EmailDescription
 						FROM Contacts.Contacts AS CC WITH (NOLOCK) 
 						JOIN Contacts.Phones AS CP WITH (NOLOCK) ON CC.PhoneIDFK = CP.PhoneID
@@ -85,35 +85,57 @@ BEGIN
 
 			COMMIT TRAN
 
-		END ELSE 
+		END ELSE
 		BEGIN
-			--SET NEW GUID
-			SET @GUID = NEWID()
-
-			/*IF PHONE DOES NOT EXISTS*/
-			IF NOT EXISTS (SELECT 1 FROM Contacts.Phones WITH (NOLOCK) WHERE PhoneNumber = @PhoneNumber)
+			IF NOT EXISTS (SELECT 1 FROM Contacts.Phones AS CP WITH (NOLOCK) WHERE PhoneNumber = @PhoneNumber) /*IF PHONE DOES NOT EXISTS*/
 			BEGIN
 				
-				UPDATE Contacts.Phones SET 
-					PhoneNumber = @PhoneNumber,
-					PhoneTypeIDFK = @PhoneTypeID,
-					PhoneIsActive = @IsActive,
-					UpdatedDate = @DEFAULTDATE
-					WHERE PhoneID = @GUID
+				INSERT INTO Contacts.Phones
+				(
+					PhoneNumber, 
+					PhoneTypeIDFK, 
+					PhoneIsActive, 
+					UpdatedDate
+				)
+				VALUES(@PhoneNumber, @PhoneTypeID, @IsActive, @DEFAULTDATE)
+
+				INSERT INTO Contacts.Contacts
+				(
+					PhoneIDFK, 
+					EmailIDFK, 
+					ContactTypeIDFK, 
+					ContactIsActive, 
+					UpdatedDate
+				)
+				VALUES((SELECT PhoneID FROM Contacts.Phones WHERE PhoneNumber = @PhoneNumber), (SELECT EmailID FROM Contacts.Emails WHERE EmailDescription = @Email), (SELECT ContactTypeID FROM Contacts.ContactType WHERE ContactTypeID = @ContactType) , @IsActive, @DEFAULTDATE)
+
 					
 
 				SET @Message = 'Phone number saved successfully'
 			
-			END ELSE
+			END 
+			ELSE
 			IF NOT EXISTS (SELECT 1 FROM Contacts.Emails WITH (NOLOCK) WHERE EmailDescription = @Email) /*IF EMAIL DOES NOT EXISTS*/
 			BEGIN
 				
-				UPDATE Contacts.Emails SET
-					EmailDescription = @Email,
-					EmailTypeIDFK = @EmailType,
-					EmailIsActive = @IsActive,
-					UpdatedDate = @DEFAULTDATE
-					WHERE EmailID = @GUID
+				INSERT INTO Contacts.Emails
+				(
+					EmailDescription, 
+					EmailTypeIDFK, 
+					EmailIsActive, 
+					UpdatedDate
+				)
+				VALUES(@Email, @EmailType, @IsActive, @DEFAULTDATE)
+
+				INSERT INTO Contacts.Contacts
+				(
+					PhoneIDFK, 
+					EmailIDFK, 
+					ContactTypeIDFK, 
+					ContactIsActive, 
+					UpdatedDate
+				)
+				VALUES((SELECT PhoneID FROM Contacts.Phones WHERE PhoneNumber = @PhoneNumber), (SELECT EmailID FROM Contacts.Emails WHERE EmailDescription = @Email), (SELECT ContactTypeID FROM Contacts.ContactType WHERE ContactTypeID = @ContactType) , @IsActive, @DEFAULTDATE)
 
 				SET @Message = 'Email saved successfully'
 				
@@ -124,13 +146,12 @@ BEGIN
 				SET @Message = 'Check Email AND Phone'
 				--SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 6)
 				
-				ROLLBACK TRAN
+				--ROLLBACK TRAN
 			END
 
-			COMMIT TRAN
-				
-		END
+		COMMIT TRAN
 		
+		END
 	END TRY
 	BEGIN CATCH
 		
@@ -149,7 +170,7 @@ BEGIN
 
 		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 2)
 
-		ROLLBACK TRAN
+		--ROLLBACK TRAN
 
 	END CATCH
 
