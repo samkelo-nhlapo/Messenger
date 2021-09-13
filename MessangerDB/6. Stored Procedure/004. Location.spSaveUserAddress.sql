@@ -12,24 +12,23 @@ GO
 
 CREATE OR ALTER PROC Location.spSaveUserAddress
 (
-	@Street VARCHAR(200),
-	@CityID INT,
-	@PostalCode VARCHAR(10),
-	@ProvinceFK INT,
-	@CountryFK INT,
-	@Latitude NVARCHAR(MAX),
-	@Longitude NVARCHAR(MAX),
+	@Street VARCHAR(200) = '',
+	@CityID INT = 0,
+	@PostalCode VARCHAR(10) = '',
+	@ProvinceFK INT = 0,
+	@CountryFK INT = 0, 
+	@Latitude NVARCHAR(MAX) = '',
+	@Longitude NVARCHAR(MAX) = '',
 	@Message VARCHAR(MAX) OUTPUT
 )
 AS
 BEGIN
 	
 	SET NOCOUNT ON
-	BEGIN TRAN
 
-	DECLARE @IsActive BIT = 1,
+	DECLARE @IsActive BIT ,
 			@DefaultDate DATETIME  = GETDATE(),
-			@GeoFK UNIQUEIDENTIFIER,
+			@GeoFK UNIQUEIDENTIFIER = NEWID(),
 			@AddressID UNIQUEIDENTIFIER,
 			@ErrorSchema VARCHAR(MAX),
 			@ErrorProc VARCHAR(MAX),
@@ -40,41 +39,51 @@ BEGIN
 			@ErrorMessage VARCHAR(MAX),
 			@ErrorDate DATETIME
 
+	BEGIN TRAN spSaveUserAddress
+	BEGIN TRY
+		
+		IF EXISTS(SELECT 1 FROM Location.Countries WITH (NOLOCK) WHERE CountryId = @CountryFK)
+		BEGIN
+			
 
-	IF EXISTS(SELECT 1 FROM Location.Countries WHERE CountryId = @CountryFK)
-	BEGIN
-		INSERT INTO Location.Geo
-		(
-			Latitude,
-			Longitude
-		)
-		VALUES(@Latitude, @Longitude)
+			SET @GeoFK = NEWID(),
+				@IsActive  = 1
 
-		INSERT INTO Location.Address
-		(
-			Street, 
-			CityIDFK, 
-			PostalCode, 
-			ProvinceIDFK, 
-			CountryIDFK, 
-			GeoIDFK, 
-			IsActive, 
-			UpdateDate
-		)
-		VALUES(@Street, @CityID, @PostalCode, @ProvinceFK, @CountryFK, @GeoFK, @IsActive, @DefaultDate)
+			INSERT INTO Location.Geo
+			(
+				GeoId,
+				Latitude,
+				Longitude
+			)
+			VALUES(@GeoFK ,@Latitude, @Longitude)
 
-		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 7)
+			INSERT INTO Location.Address
+			(
+				Street, 
+				CityIDFK, 
+				PostalCode, 
+				ProvinceIDFK, 
+				CountryIDFK, 
+				GeoIDFK, 
+				IsActive, 
+				UpdateDate
+			)
+			VALUES(@Street, @CityID, @PostalCode, @ProvinceFK, @CountryFK, (SELECT GeoId FROM Location.Geo WHERE GeoId = @GeoFK), @IsActive, @DefaultDate)
 
-		COMMIT TRAN
+			SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 7)
 
-	END	ELSE
-	BEGIN
+			COMMIT TRAN spSaveUserAddress
 
-		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 8)
+		END	ELSE
+		BEGIN
 
-		ROLLBACK TRAN
+			SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 8)
 
-	END
+			ROLLBACK TRAN spSaveUserAddress
+
+		END
+	END TRY
+	BEGIN CATCH
 
 		SET @ErrorSchema = OBJECT_SCHEMA_NAME(@@PROCID)
 		SET @ErrorProc = OBJECT_NAME(@@PROCID)
@@ -89,6 +98,7 @@ BEGIN
 
 		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 8)
 
-		ROLLBACK TRAN
-	
+		ROLLBACK TRAN spSaveUserAddress
+
+	END CATCH
 END
