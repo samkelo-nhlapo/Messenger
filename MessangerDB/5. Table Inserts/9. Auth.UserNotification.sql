@@ -38,4 +38,13 @@ VALUES
 ('No User Phone number currently saved for ', 1, GETDATE()),
 ('Unable to get Phone number , please try re-enter again. If the problem continues, please contact support.', 1, GETDATE()),
 ('User Phone number updated successfully ', 1, GETDATE()),
-('User Phone number already exists please try again. If the problem continues. Please contact customer support', 1, GETDATE())
+('User Phone number already exists please try again. If the problem continues. Please contact customer support', 1, GETDATE()),
+
+--User
+('User details saved successfully.', 1, GETDATE()),
+('User details not successfully saved, please try re-enter again. If the problem continues, please contact support', 1, GETDATE()),
+('No User details currently saved for ', 1, GETDATE()),
+('Unable to get User details , please try re-enter again. If the problem continues, please contact support.', 1, GETDATE()),
+('User details updated successfully ', 1, GETDATE()),
+('User details already exists please try again. If the problem continues. Please contact customer support', 1, GETDATE()),
+('User does not exists please try again. If the problem continues. Please contact customer support', 1, GETDATE())
