@@ -21,7 +21,6 @@ CREATE OR ALTER PROCEDURE Contacts.spSaveUserContacts
 )
 AS
 BEGIN
-
 	
 	SET NOCOUNT ON
 
@@ -37,10 +36,9 @@ BEGIN
 			@ErrorDate DATETIME,
 			@GUID UNIQUEIDENTIFIER 
 	
-	BEGIN TRAN
-	
-	BEGIN TRY	
-		--/*IF PHONE AND EMAIL DOES NOT EXISTS INSERT*/
+	BEGIN TRY
+
+		/*IF PHONE AND EMAIL DOES NOT EXISTS INSERT*/
 		IF NOT EXISTS (SELECT CP.PhoneNumber, CE.EmailDescription
 						FROM Contacts.Contacts AS CC WITH (NOLOCK) 
 						JOIN Contacts.Phones AS CP WITH (NOLOCK) ON CC.PhoneIDFK = CP.PhoneID
@@ -87,7 +85,10 @@ BEGIN
 
 		END ELSE
 		BEGIN
-			IF NOT EXISTS (SELECT 1 FROM Contacts.Phones AS CP WITH (NOLOCK) WHERE PhoneNumber = @PhoneNumber) /*IF PHONE DOES NOT EXISTS*/
+		
+		
+			/*IF PHONE DOES NOT EXISTS*/
+			IF NOT EXISTS (SELECT 1 FROM Contacts.Phones WITH (NOLOCK) WHERE PhoneNumber = @PhoneNumber) 
 			BEGIN
 				
 				INSERT INTO Contacts.Phones
@@ -109,10 +110,9 @@ BEGIN
 				)
 				VALUES((SELECT PhoneID FROM Contacts.Phones WHERE PhoneNumber = @PhoneNumber), (SELECT EmailID FROM Contacts.Emails WHERE EmailDescription = @Email), (SELECT ContactTypeID FROM Contacts.ContactType WHERE ContactTypeID = @ContactType) , @IsActive, @DEFAULTDATE)
 
-					
-
-				SET @Message = 'Phone number saved successfully'
-			
+				SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 18)
+				
+				
 			END 
 			ELSE
 			IF NOT EXISTS (SELECT 1 FROM Contacts.Emails WITH (NOLOCK) WHERE EmailDescription = @Email) /*IF EMAIL DOES NOT EXISTS*/
@@ -137,7 +137,7 @@ BEGIN
 				)
 				VALUES((SELECT PhoneID FROM Contacts.Phones WHERE PhoneNumber = @PhoneNumber), (SELECT EmailID FROM Contacts.Emails WHERE EmailDescription = @Email), (SELECT ContactTypeID FROM Contacts.ContactType WHERE ContactTypeID = @ContactType) , @IsActive, @DEFAULTDATE)
 
-				SET @Message = 'Email saved successfully'
+				SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 12)
 				
 
 			END ELSE
@@ -148,9 +148,6 @@ BEGIN
 				
 				--ROLLBACK TRAN
 			END
-
-		COMMIT TRAN
-		
 		END
 	END TRY
 	BEGIN CATCH
@@ -170,7 +167,7 @@ BEGIN
 
 		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 2)
 
-		--ROLLBACK TRAN
+		ROLLBACK TRAN
 
 	END CATCH
 
