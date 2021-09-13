@@ -12,7 +12,6 @@ GO
 
 CREATE OR ALTER PROC Location.spSaveUserAddress
 (
-	@User UNIQUEIDENTIFIER,
 	@Street VARCHAR(200),
 	@CityID INT,
 	@PostalCode VARCHAR(10),
@@ -41,50 +40,39 @@ BEGIN
 			@ErrorMessage VARCHAR(MAX),
 			@ErrorDate DATETIME
 
-	IF NOT EXISTS(SELECT * FROM Location.Address AS PA JOIN Profile.Users AS PU ON PU.AddressIDFK = PA.AddressID WHERE PU.UserID = @User )
+
+	IF EXISTS(SELECT 1 FROM Location.Countries WHERE CountryId = @CountryFK)
 	BEGIN
-		
-		INSERT INTO Location.Geo(Latitude,Longitude)
+		INSERT INTO Location.Geo
+		(
+			Latitude,
+			Longitude
+		)
 		VALUES(@Latitude, @Longitude)
 
 		INSERT INTO Location.Address
 		(
-			Street,
-			CityIDFK,
-			PostalCode,
-			ProvinceIDFK,
-			GeoIDFK,
-			IsActive,
+			Street, 
+			CityIDFK, 
+			PostalCode, 
+			ProvinceIDFK, 
+			CountryIDFK, 
+			GeoIDFK, 
+			IsActive, 
 			UpdateDate
 		)
-		VALUES(dbo.CapitalizeFirstLetter(@Street),@CityID, @PostalCode, @ProvinceFK, @CountryFK, @GeoFK, @IsActive, @DefaultDate)
+		VALUES(@Street, @CityID, @PostalCode, @ProvinceFK, @CountryFK, @GeoFK, @IsActive, @DefaultDate)
 
-		SET @Message = (SELECT * FROM Auth.UserNotification WITH (NOLOCK) WHERE UserNotificationID = 7 )
+		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 7)
 
 		COMMIT TRAN
 
-	END ELSE
+	END	ELSE
 	BEGIN
-		
-		UPDATE Location.Geo SET 
-				Latitude = @Latitude,
-				Longitude = @Longitude
-		WHERE GeoId = @AddressID
 
-		UPDATE Location.Address SET 
-				Street = dbo.CapitalizeFirstLetter(@Street),
-				CityIDFK = @CityID,
-				PostalCode = @PostalCode,
-				ProvinceIDFK = @ProvinceFK,
-				CountryIDFK = @CountryFK,
-				GeoIDFK = @GeoFK,
-				IsActive = @IsActive,
-				UpdateDate = @DefaultDate
-		WHERE AddressID = @AddressID
+		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 8)
 
-		SET @Message = (SELECT * FROM Auth.UserNotification WITH (NOLOCK) WHERE UserNotificationID = 7 )
-
-		COMMIT TRAN
+		ROLLBACK TRAN
 
 	END
 
@@ -101,5 +89,6 @@ BEGIN
 
 		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 8)
 
-
+		ROLLBACK TRAN
+	
 END

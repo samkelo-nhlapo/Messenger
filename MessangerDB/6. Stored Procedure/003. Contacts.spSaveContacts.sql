@@ -38,9 +38,8 @@ SET NOCOUNT ON
 	
 	BEGIN TRY	
 		
-		IF NOT EXISTS(SELECT 1 FROM Contacts.Phones WHERE PhoneNumber = @PhoneNumber)
+		IF NOT EXISTS(SELECT 1 FROM Contacts.Phones WHERE PhoneNumber = @PhoneNumber) AND NOT EXISTS(SELECT 1 FROM Contacts.Emails WHERE EmailDescription = @Email)
 		BEGIN
-			
 			INSERT INTO Contacts.Phones
 			(
 				PhoneNumber, 
@@ -50,11 +49,6 @@ SET NOCOUNT ON
 			)
 			VALUES(@PhoneNumber, @PhoneTypeID, @IsActive, @DEFAULTDATE)
 
-		END
-		ELSE
-		IF NOT EXISTS(SELECT * FROM Contacts.Emails WHERE EmailDescription = @Email)
-		BEGIN
-
 			INSERT INTO Contacts.Emails
 			(
 				EmailDescription, 
@@ -63,6 +57,24 @@ SET NOCOUNT ON
 				UpdatedDate
 			)
 			VALUES(@Email, @EmailType, @IsActive, @DEFAULTDATE)
+
+			INSERT INTO Contacts.Contacts
+			(
+				PhoneIDFK, 
+				EmailIDFK, 
+				ContactTypeIDFK, 
+				ContactIsActive, 
+				UpdatedDate
+			)
+			VALUES( @PhoneNumber, @Email, @ContactType, @IsActive, @DEFAULTDATE)
+
+			SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 1)
+
+		END 
+		ELSE 
+		BEGIN
+
+			SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 6)
 
 		END
 
