@@ -12,11 +12,11 @@ GO
 
 CREATE OR ALTER PROCEDURE Contacts.spSaveUserContacts
 (
-	@ContactType INT,
-	@PhoneNumber VARCHAR(12),
-	@PhoneTypeID INT,
-	@Email VARCHAR(MAX),
-	@EmailType INT,
+	@ContactType INT = 0,
+	@PhoneNumber VARCHAR(12) = '',
+	@PhoneTypeID INT = 0,
+	@Email VARCHAR(MAX) = '',
+	@EmailType INT = 0,
 	@Message VARCHAR (MAX) OUTPUT
 )
 AS
@@ -35,11 +35,14 @@ SET NOCOUNT ON
 			@ErrorDate DATETIME,
 			@GUID UNIQUEIDENTIFIER 
 	
-	
+	BEGIN TRAN spSaveUserContacts
+
 	BEGIN TRY	
 		
+		--Check if Phone number and email Are not in the database
 		IF NOT EXISTS(SELECT 1 FROM Contacts.Phones WHERE PhoneNumber = @PhoneNumber) AND NOT EXISTS(SELECT 1 FROM Contacts.Emails WHERE EmailDescription = @Email)
 		BEGIN
+
 			INSERT INTO Contacts.Phones
 			(
 				PhoneNumber, 
@@ -70,11 +73,14 @@ SET NOCOUNT ON
 
 			SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 1)
 
+			COMMIT TRAN spSaveUserContacts
 		END 
 		ELSE 
 		BEGIN
 
 			SET @Message = (SELECT UserNotification FROM Auth.UserNotification WHERE UserNotificationID = 6)
+
+			ROLLBACK TRAN spSaveUserContacts
 
 		END
 
@@ -95,6 +101,8 @@ SET NOCOUNT ON
 		EXEC [Auth].[spLogExceptions] @ErrorSchema, @ErrorProc, @ErrorNumber, @ErrorState, @ErrorSeverity, @ErrorLine, @ErrorMessage, @ErrorDate, 2
 
 		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 2)
+
+		ROLLBACK TRAN spSaveUserContacts
 
 	END CATCH
 SET NOCOUNT OFF

@@ -42,12 +42,13 @@ BEGIN
 	BEGIN TRAN spSaveUserAddress
 	BEGIN TRY
 		
+		--if country exists 
 		IF EXISTS(SELECT 1 FROM Location.Countries WITH (NOLOCK) WHERE CountryId = @CountryFK)
 		BEGIN
 			
 
-			SET @GeoFK = NEWID(),
-				@IsActive  = 1
+			SET @GeoFK = NEWID()
+			SET @IsActive  = 1
 
 			INSERT INTO Location.Geo
 			(

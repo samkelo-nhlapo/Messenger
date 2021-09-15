@@ -12,12 +12,12 @@ GO
 
 CREATE OR ALTER PROC Profile.spSaveUserDetails
 (
-	@UserID UNIQUEIDENTIFIER,
-	@Name VARCHAR(250),
-	@DateOfBirth DATETIME,
+	@UserID UNIQUEIDENTIFIER ,
+	@Name VARCHAR(250) = '',
+	@DateOfBirth DATETIME = '0000-00-00 00:00:00.000',
 	@AddressFK UNIQUEIDENTIFIER,
 	@ContactsFK UNIQUEIDENTIFIER,
-	@UserAuthtypeFK INT,
+	@UserAuthtypeFK INT = 0,
 	@Message VARCHAR(MAX) OUTPUT
 )
 AS
@@ -26,10 +26,10 @@ BEGIN
 SET NOCOUNT ON 
 
 	DECLARE @DefaultDate DATETIME = GETDATE(),
-			@IsArchived BIT = 0,
-			@IsReported BIT = 0,
-			@IsBlocked BIT = 0,
-			@IsActive BIT = 1,
+			@IsArchived BIT ,
+			@IsReported BIT ,
+			@IsBlocked BIT ,
+			@IsActive BIT ,
 			@ErrorSchema VARCHAR(MAX),
 			@ErrorProc VARCHAR(MAX),
 			@ErrorNumber VARCHAR(MAX),
@@ -41,9 +41,9 @@ SET NOCOUNT ON
 	
 	BEGIN TRY
 		
-		IF NOT EXISTS(SELECT * FROM Profile.Users WHERE UserID = @UserID)
+		IF NOT EXISTS(SELECT 1 FROM Contacts.)
 		BEGIN
-
+			
 			INSERT INTO Profile.Users
 			(
 				UserName, 
