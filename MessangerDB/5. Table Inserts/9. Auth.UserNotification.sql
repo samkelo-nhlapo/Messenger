@@ -47,4 +47,17 @@ VALUES
 ('Unable to get User details , please try re-enter again. If the problem continues, please contact support.', 1, GETDATE()),
 ('User details updated successfully ', 1, GETDATE()),
 ('User details already exists please try again. If the problem continues. Please contact customer support', 1, GETDATE()),
-('User does not exists please try again. If the problem continues. Please contact customer support', 1, GETDATE())
+('User does not exists please try again. If the problem continues. Please contact customer support', 1, GETDATE()),
+
+--profile
+('Profile details saved successfully.', 1, GETDATE()),
+('Profile details not successfully saved, please try re-enter again. If the problem continues, please contact support', 1, GETDATE()),
+('No Profile details currently saved for ', 1, GETDATE()),
+('Unable to get Profile details , please try re-enter again. If the problem continues, please contact support.', 1, GETDATE()),
+('Profile updated successfully ', 1, GETDATE()),
+
+--Message
+('Message sent successfully.', 1, GETDATE()),
+('Message not successfully saved, please try re-enter again. If the problem continues, please contact support', 1, GETDATE()),
+('No Message currently sent', 1, GETDATE()),
+('Unable to send Message , please try re-enter again. If the problem continues, please contact support.', 1, GETDATE())
