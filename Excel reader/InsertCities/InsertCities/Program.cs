@@ -47,7 +47,7 @@ namespace InsertCities
                     Province = doc.GetCellValueAsString(rowIndex, 2);
                     
 
-                    using (SqlConnection conn = new SqlConnection("Server=localhost,1433;Database=Messenger;User Id=sa;Password=Orlando123;"))
+                    using (SqlConnection conn = new SqlConnection("Server=localhost,1433;Database=Messenger;User Id=sa;Password=GDGp4NJec2T3WhpH;"))
                     {
                         //Console.WriteLine("Connected to sql");
                         SqlCommand command = new SqlCommand("Location.spInsertCities", conn);

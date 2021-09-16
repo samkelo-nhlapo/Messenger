@@ -40,6 +40,7 @@ BEGIN
 			@ErrorDate DATETIME
 
 	BEGIN TRAN spSaveUserAddress
+	
 	BEGIN TRY
 		
 		--if country exists 
@@ -69,7 +70,7 @@ BEGIN
 				IsActive, 
 				UpdateDate
 			)
-			VALUES(@Street, @CityID, @PostalCode, @ProvinceFK, @CountryFK, (SELECT GeoId FROM Location.Geo WHERE GeoId = @GeoFK), @IsActive, @DefaultDate)
+			VALUES(@Street, @CityID, @PostalCode, @ProvinceFK, @CountryFK,  @GeoFK, @IsActive, @DefaultDate)
 
 			SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 7)
 
