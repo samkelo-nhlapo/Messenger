@@ -39,7 +39,15 @@ SET NOCOUNT ON
 			
 			SET @IsDeleted = 0
 
-			INSERT INTO Profile.Messages(MessageBody, CreatorIDFK, MediaIDFK, Created_at, IsRead, IsDeleted)
+			INSERT INTO Profile.Messages
+			(
+				MessageBody, 
+				CreatorIDFK, 
+				MediaIDFK, 
+				Created_at, 
+				IsRead, 
+				IsDeleted
+			)
 			VALUES(@MessageBody, @CreatorFK, @MediaFK, @DefaultDate, @IsRead, @IsDeleted)
 
 			SET @Message = (SELECT * FROM Auth.UserNotification WHERE UserNotification = )
@@ -49,7 +57,15 @@ SET NOCOUNT ON
 			
 			SET @IsDeleted = 0
 
-			INSERT INTO Profile.Messages(MessageBody, CreatorIDFK, MediaIDFK, Created_at, IsRead, IsDeleted)
+			INSERT INTO Profile.Messages
+			(
+				MessageBody, 
+				CreatorIDFK, 
+				MediaIDFK, 
+				Created_at, 
+				IsRead, 
+				IsDeleted
+			)
 			VALUES(@MessageBody, @CreatorFK, @MediaFK, @DefaultDate, @IsRead, @IsDeleted)
 
 			SET @Message = (SELECT * FROM Auth.UserNotification WHERE UserNotification = )
