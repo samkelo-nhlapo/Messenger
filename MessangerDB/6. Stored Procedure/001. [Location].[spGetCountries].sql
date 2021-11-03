@@ -18,6 +18,7 @@ GO
 
 CREATE OR ALTER PROC [Location].[spGetCountries]
 (
+	@CountryId int = 0,
 	@Country VARCHAR(250) = '',
 	@Message VARCHAR(250) OUTPUT
 )
@@ -37,7 +38,7 @@ BEGIN
 	END ELSE 
 	BEGIN
 		
-		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 40)
+		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 47)
 
 	END
 

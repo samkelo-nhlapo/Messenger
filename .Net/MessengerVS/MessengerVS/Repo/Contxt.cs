@@ -8,7 +8,7 @@ namespace MessengerVS.Repo
 {
     public partial class Contxt : DbContext
     {
-        public Contxt () : base("name = MessengerEntity")
+        public Contxt () : base("Name=MessengerEntity")
         {
         }
     }
