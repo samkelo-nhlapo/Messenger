@@ -15,8 +15,15 @@
     </div>
 
     <div class="row">
-        <label>Countries</label>
-        @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>() { new SelectListItem() { Value = Model.CountryId, Text = Model.Countries, Selected = true } }, "0", new { id = "ddlGetCountries", @class = "select-block" })
+        <label>Countries</label> 
+        @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>() 
+             { new SelectListItem() 
+               { 
+                 Value = Model.CountryId, 
+                 Text = Model.CountryDescripition, 
+                 Selected = true 
+               } 
+             }, "0", new { id = "ddlGetCountries", @class = "select-block" })
     </div>
 }
 
@@ -34,7 +41,14 @@
                 global: false,
                 success: function (data)
                 {
-                    alert("was successful");
+                    var items = "<option value ='" + "0" + "'>" + "Select Country" + "</option>";
+                    $.each(data, function (i, value)
+                    {
+                        items += "<option value ='" + value.CountryId + "'>" + value.CountryDescripition + "</option>"
+
+                        $('#ddlGetCountries').html(items);
+                    })
+                    //alert("was successful");
                 },
                 error: function (xhr)
                 {
