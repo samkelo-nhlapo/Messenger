@@ -18,30 +18,23 @@ GO
 
 CREATE OR ALTER PROC [Location].[spGetCountries]
 (
-	@CountryId int = 0,
-	@Country VARCHAR(250) = '',
-	@Message VARCHAR(250) OUTPUT
+	@CountryId INT = 0,
+	@Country VARCHAR(250) = ''
+	
 )
 AS 
 BEGIN
 	
-	IF EXISTS(SELECT 1 FROM Location.Countries WHERE CountryDescripition = @Country)
+
+	IF EXISTS(SELECT 1 FROM Location.Countries WHERE CountryDescripition = @Country )
 	BEGIN
 
 		SELECT 
-			CountryId, 
+			CAST(CountryId AS VARCHAR(1000)) AS CountryId, 
 			CountryDescripition 
-		FROM Location.Countries WHERE CountryDescripition = @Country
-
-		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 40)
+		FROM Location.Countries 
 	
-	END ELSE 
-	BEGIN
-		
-		SET @Message = (SELECT UserNotification FROM Auth.UserNotification WITH(NOLOCK) WHERE UserNotificationID = 47)
-
-	END
-
+	END 
 END
 GO
 
