@@ -48,6 +48,42 @@ namespace MessengerVS.Controllers
             
         }
 
+        public JsonResult GetCities()
+        {
+            try
+            {
+                using (var db = GetContxt())
+                {
+                    var eventCountryList = db.Database.SqlQuery<LocationModel>(String.Format("Location.spGetCities")).ToList();
+                    return new JsonResult { Data = eventCountryList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public JsonResult GetProvinces()
+        {
+            try
+            {
+                using (var db = GetContxt())
+                {
+                    var eventCountryList = db.Database.SqlQuery<LocationModel>(String.Format("Location.spGetProvinces")).ToList();
+                    return new JsonResult { Data = eventCountryList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         public static Contxt GetContxt()
         {
             return new Contxt();

@@ -7,9 +7,13 @@ namespace MessengerVS.Models
 {
     public class LocationModel
     {
-        //spGetLocation
+        //spGetCountries
         public string CountryId { get; set; }
         public string CountryDescripition { get; set; }
-        public string Message { get; set; }
+
+
+        //spGetProvinces
+        public string ProvinceId { get; set; }
+        public string ProvinceName { get; set; }
     }
 }
