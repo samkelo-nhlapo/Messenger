@@ -11,9 +11,12 @@ namespace MessengerVS.Models
         public string CountryId { get; set; }
         public string CountryDescripition { get; set; }
 
-
         //spGetProvinces
         public string ProvinceId { get; set; }
-        public string ProvinceName { get; set; }
+        public string ProvinceDecription { get; set; }
+
+        //spGetCities
+        public string CityID { get; set; }
+        public string CityName { get; set; }
     }
 }

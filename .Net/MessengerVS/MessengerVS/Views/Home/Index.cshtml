@@ -15,21 +15,46 @@
     </div>
 
     <div class="row">
-        <label>Countries</label> 
-        @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>() 
-             { new SelectListItem() 
-               { 
-                 Value = Model.CountryId, 
-                 Text = Model.CountryDescripition, 
-                 Selected = true 
-               } 
+        <label>Countries</label>
+        @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>()
+             { new SelectListItem()
+               {
+                 Value = Model.CountryId,
+                 Text = Model.CountryDescripition,
+                 Selected = true
+               }
              }, "0", new { id = "ddlGetCountries", @class = "select-block" })
+    </div>
+
+    <div class="row">
+        <label>Provinces</label>
+        @Html.DropDownListFor(x => x.ProvinceId, new List<SelectListItem>()
+             { new SelectListItem()
+               {
+                 Value = Model.ProvinceId,
+                 Text = Model.ProvinceDecription,
+                 Selected = true
+               }
+             }, "0", new { id = "ddlGetProvinces", @class = "select-block" })
+    </div>
+
+    <div class="row">
+        <label>Cities</label>
+        @Html.DropDownListFor(x => x.CityID, new List<SelectListItem>()
+             { new SelectListItem()
+               {
+                 Value = Model.CityID,
+                 Text = Model.CityName,
+                 Selected = true
+               }
+             }, "0", new { id = "ddlGetCities", @class = "select-block" })
     </div>
 }
 
 <script type="text/javascript">
-    $(document).ready(function ()
-    {
+    $(document).ready(function () {
+
+
         debugger
         $.ajax(
             {
@@ -39,19 +64,62 @@
                 cache: true,
                 async: true,
                 global: false,
-                success: function (data)
-                {
+                success: function (data) {
                     var items = "<option value ='" + "0" + "'>" + "Select Country" + "</option>";
-                    $.each(data, function (i, value)
-                    {
+                    $.each(data, function (i, value) {
                         items += "<option value ='" + value.CountryId + "'>" + value.CountryDescripition + "</option>"
 
                         $('#ddlGetCountries').html(items);
                     })
                     //alert("was successful");
                 },
-                error: function (xhr)
-                {
+                error: function (xhr) {
+                    alert("was not successful");
+                }
+            }
+        )
+        debugger
+        $.ajax(
+            {
+                url: '/Home/GetProvinces',
+                dataType: "json",
+                type: "GET",
+                cache: true,
+                async: true,
+                global: false,
+                success: function (data) {
+                    var items = "<option value ='" + "0" + "'>" + "Select Country" + "</option>";
+                    $.each(data, function (i, value) {
+                        items += "<option value ='" + value.ProvinceId + "'>" + value.ProvinceDecription + "</option>"
+
+                        $('#ddlGetProvinces').html(items);
+                    })
+                    //alert("was successful");
+                },
+                error: function (xhr) {
+                    alert("was not successful");
+                }
+            }
+        )
+        debugger
+        $.ajax(
+            {
+                url: '/Home/GetCities',
+                dataType: "json",
+                type: "GET",
+                cache: true,
+                async: true,
+                global: false,
+                success: function (data) {
+                    var items = "<option value ='" + "0" + "'>" + "Select City" + "</option>";
+                    $.each(data, function (i, value) {
+                        items += "<option value ='" + value.CityID + "'>" + value.CityName + "</option>"
+
+                        $('#ddlGetCities').html(items);
+                    })
+                    //alert("was successful");
+                },
+                error: function (xhr) {
                     alert("was not successful");
                 }
             }
