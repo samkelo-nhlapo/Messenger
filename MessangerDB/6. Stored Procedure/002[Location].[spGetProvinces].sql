@@ -1,4 +1,4 @@
-USE [Messenger]
+USE Messenger
 GO
 
 /****** Object:  StoredProcedure [Location].[spC]    Script Date: 29-Oct-21 05:18:00 PM ******/
@@ -8,35 +8,30 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-
 --================================================================================================
 --	Author:		Samkelo Nhlapo
---	Create date	02/08/2021
---	Description	Select Countries Procedure
---	TFS Task	Select Into Table
+--	Create date	25/10/2021
+--	Description	Get Provinces Procedure
+--	TFS Task	Get Province Table
 --================================================================================================
 
-CREATE OR ALTER PROC [Location].[spGetCountries]
+CREATE OR ALTER PROC [Location].[spGetProvinces]
 (
-	@CountryId INT = 0,
-	@Country VARCHAR(250) = ''
-	
+	@ProvinceId	INT = 0,
+	@ProvinceName VARCHAR(250) = ''
 )
 AS 
 BEGIN
-	
 
-	IF EXISTS(SELECT 1 FROM Location.Countries WHERE CountryDescripition = @Country )
+	IF EXISTS(SELECT 1 FROM Location.Provinces WHERE ProvinceDecription = @ProvinceName)
 	BEGIN
 
 		SELECT 
-			CAST(CountryId AS VARCHAR(1000)) AS CountryId, 
-			CountryDescripition 
-		FROM Location.Countries 
-	
+			CAST(ProvinceId AS VARCHAR(1000)) AS ProvinceId,
+			ProvinceDecription 
+		FROM Location.Provinces 
+
 	END 
 
 END
 GO
-
-

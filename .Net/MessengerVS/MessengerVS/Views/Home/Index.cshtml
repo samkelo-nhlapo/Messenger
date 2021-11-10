@@ -40,20 +40,21 @@
 
     <div class="row">
         <label>Cities</label>
-        @Html.DropDownListFor(x => x.CityID, new List<SelectListItem>()
-             { new SelectListItem()
-               {
-                 Value = Model.CityID,
-                 Text = Model.CityName,
-                 Selected = true
-               }
-             }, "0", new { id = "ddlGetCities", @class = "select-block" })
+        @Html.DropDownListFor(x => x.CityID, new List<SelectListItem>() 
+            { new SelectListItem() 
+                { 
+                    Value = Model.CityID, 
+                    Text = Model.CityName, 
+                    Selected = true 
+                } 
+            }, "0", new { id = "ddlGetCities", @class = "select-block"})
+
     </div>
+
 }
 
 <script type="text/javascript">
     $(document).ready(function () {
-
 
         debugger
         $.ajax(
@@ -78,6 +79,7 @@
                 }
             }
         )
+
         debugger
         $.ajax(
             {
@@ -88,7 +90,7 @@
                 async: true,
                 global: false,
                 success: function (data) {
-                    var items = "<option value ='" + "0" + "'>" + "Select Country" + "</option>";
+                    var items = "<option value ='" + "0" + "'>" + "Select Province" + "</option>";
                     $.each(data, function (i, value) {
                         items += "<option value ='" + value.ProvinceId + "'>" + value.ProvinceDecription + "</option>"
 
@@ -101,29 +103,33 @@
                 }
             }
         )
+
         debugger
         $.ajax(
             {
-                url: '/Home/GetCities',
+                url: '/Home/GetCites',
                 dataType: "json",
                 type: "GET",
                 cache: true,
                 async: true,
                 global: false,
-                success: function (data) {
-                    var items = "<option value ='" + "0" + "'>" + "Select City" + "</option>";
+                success: function (data)
+                {
+                    var items = "<option value ='" + "0" + "'>" + "Select cities" + "</option>";
                     $.each(data, function (i, value) {
                         items += "<option value ='" + value.CityID + "'>" + value.CityName + "</option>"
 
-                        $('#ddlGetCities').html(items);
+                        $('#ddlGetProvinces').html(items);
                     })
                     //alert("was successful");
                 },
-                error: function (xhr) {
-                    alert("was not successful");
+                error: function (xhr)
+                {
+                    alert("Was not successful");
                 }
             }
         )
-    });
+    })
+
 
 </script>
