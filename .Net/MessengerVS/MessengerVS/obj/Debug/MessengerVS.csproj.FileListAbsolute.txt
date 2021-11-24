@@ -101,3 +101,4 @@ C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\bin\Antlr3.Runtime.pdb
 C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\obj\Debug\MessengerVS.dll
 C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\obj\Debug\MessengerVS.pdb
+C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\obj\Debug\MessengerVS.csproj.CopyComplete

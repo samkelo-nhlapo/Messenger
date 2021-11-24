@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\MessengerVS",
+    "\\MessengerVS\\MessengerVS",
+    "\\MessengerVS\\MessengerVS\\Controllers",
+    "\\MessengerVS\\MessengerVS\\Models",
+    "\\MessengerVS\\MessengerVS\\Repo",
+    "\\MessengerVS\\MessengerVS\\Views",
+    "\\MessengerVS\\MessengerVS\\Views\\Home"
+  ],
+  "SelectedNode": "\\MessengerVS\\MessengerVS\\Controllers\\HomeController.cs",
+  "PreviewInSolutionExplorer": false
+}
