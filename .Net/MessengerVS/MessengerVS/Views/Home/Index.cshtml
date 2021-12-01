@@ -43,9 +43,10 @@
         <label>Cities</label>
         @Html.DropDownListFor(x => x.CityID, new List<SelectListItem>() 
             { new SelectListItem() 
-                { Value = Model.CityID, 
-                Text = Model.CityName, 
-                Selected = true
+                { 
+                    Value = Model.CityID, 
+                    Text = Model.CityName, 
+                    Selected = true
                 } 
             },"0", new {id = "ddlGetCities", @class = "select-block" })
     </div>
@@ -105,6 +106,7 @@
                 }
             }
         )
+
         debugger
         $.ajax(
             {
@@ -116,15 +118,17 @@
                 global: false,
                 success: function (data)
                 {
+                    alert("was successful");
 
-                    var items = "<option value ='" + "0" + "'>" + "Select City" + "</option>";
+                    var items = "<option value ='" + "0" + "'>" + "select City" + "</option>";
+
                     $.each(data, function (i, value)
                     {
                         items += "<option value ='" + value.CityID + "'>" + value.CityName + "</option>";
 
                         $('#ddlGetCities').html(items);
                     })
-                    //alert("was successful");
+                    
                 },
                 error: function(xhr)
                 {

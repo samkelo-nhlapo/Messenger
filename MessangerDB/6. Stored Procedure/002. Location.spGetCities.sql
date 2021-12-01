@@ -23,15 +23,15 @@ CREATE OR ALTER PROC [Location].[spGetCities]
 AS
 BEGIN
 
-	IF EXISTS(SELECT 1 FROM Location.Cities WHERE CityName = @CityName)
-	BEGIN
+	--IF EXISTS(SELECT 1 FROM Location.Cities WHERE CityName = @CityName)
+	--BEGIN
 
 		SELECT 
 			CAST(CityID AS VARCHAR(1000)) AS CityID,
 			CityName
 		FROM Location.Cities 
 
-	END 
+	--END 
 
 END
 GO

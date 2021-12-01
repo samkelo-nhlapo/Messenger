@@ -18,20 +18,20 @@ GO
 CREATE OR ALTER PROC [Location].[spGetProvinces]
 (
 	@ProvinceId	INT = 0,
-	@ProvinceName VARCHAR(250) = ''
+	@ProvinceName VARCHAR(255) = ''
 )
 AS 
 BEGIN
 
-	IF EXISTS(SELECT 1 FROM Location.Provinces WHERE ProvinceDecription = @ProvinceName)
-	BEGIN
+	--IF EXISTS(SELECT 1 FROM Location.Provinces WHERE ProvinceDescription = @ProvinceName)
+	--BEGIN
 
 		SELECT 
 			CAST(ProvinceId AS VARCHAR(1000)) AS ProvinceId,
-			ProvinceDecription 
+			ProvinceDescription 
 		FROM Location.Provinces 
 
-	END 
+	--END 
 
 END
 GO
