@@ -14,7 +14,7 @@
         <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
-    <div class="row">
+    @*<div class="row">
         <label>Countries</label>
         @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>()
              { new SelectListItem()
@@ -37,7 +37,7 @@
                 }
             },"0", new {id = "ddlGetProvinces", @class = "select-block" })
             
-    </div>
+    </div>*@
 
     <div class="row">
         <label>Cities</label>
@@ -57,55 +57,55 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        debugger
-        $.ajax(
-            {
-                url: '/Home/GetCountries',
-                dataType: "json",
-                type: "GET",
-                cache: true,
-                async: true,
-                global: false,
-                success: function (data) {
-                    var items = "<option value ='" + "0" + "'>" + "Select Country" + "</option>";
-                    $.each(data, function (i, value) {
-                        items += "<option value ='" + value.CountryId + "'>" + value.CountryDescripition + "</option>"
+        //debugger
+        //$.ajax(
+        //    {
+        //        url: '/Home/GetCountries',
+        //        dataType: "json",
+        //        type: "GET",
+        //        cache: true,
+        //        async: true,
+        //        global: false,
+        //        success: function (data) {
+        //            var items = "<option value ='" + "0" + "'>" + "Select Country" + "</option>";
+        //            $.each(data, function (i, value) {
+        //                items += "<option value ='" + value.CountryId + "'>" + value.CountryDescripition + "</option>"
 
-                        $('#ddlGetCountries').html(items);
-                    })
-                    //alert("was successful");
-                },
-                error: function (xhr) {
-                    alert("was not successful");
-                }
-            }
-        )
+        //                $('#ddlGetCountries').html(items);
+        //            })
+        //            //alert("was successful");
+        //        },
+        //        error: function (xhr) {
+        //            alert("was not successful");
+        //        }
+        //    }
+        //)
 
-        $.ajax(
-            {
-                url: '/Home/GetProvinces',
-                dataType: "json",
-                type: "GET",
-                cache: true,
-                async: true,
-                global: false,
-                success: function (data)
-                {
-                    var items = "<option value ='" + "0" + "'>" + "Select Province" + "</option>";
-                    $.each(data, function (i, value)
-                    {
-                        items += "<option value ='" + value.ProvinceId + "'>" + value.ProvinceDescription + "</option>";
+        //$.ajax(
+        //    {
+        //        url: '/Home/GetProvinces',
+        //        dataType: "json",
+        //        type: "GET",
+        //        cache: true,
+        //        async: true,
+        //        global: false,
+        //        success: function (data)
+        //        {
+        //            var items = "<option value ='" + "0" + "'>" + "Select Province" + "</option>";
+        //            $.each(data, function (i, value)
+        //            {
+        //                items += "<option value ='" + value.ProvinceId + "'>" + value.ProvinceDescription + "</option>";
 
-                        $('#ddlGetProvinces').html(items);
-                    })
-                    //alert("wass successful");
-                },
-                error: function (xhr)
-                {
-                    alert("was not successful");
-                }
-            }
-        )
+        //                $('#ddlGetProvinces').html(items);
+        //            })
+        //            //alert("wass successful");
+        //        },
+        //        error: function (xhr)
+        //        {
+        //            alert("was not successful");
+        //        }
+        //    }
+        //)
 
         debugger
         $.ajax(
@@ -118,7 +118,7 @@
                 global: false,
                 success: function (data)
                 {
-                    alert("was successful");
+                    //alert("was successful");
 
                     var items = "<option value ='" + "0" + "'>" + "select City" + "</option>";
 

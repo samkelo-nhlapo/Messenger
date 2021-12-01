@@ -33,43 +33,43 @@ namespace MessengerVS.Controllers
             return View();
         }
 
-        public JsonResult GetCountries()
-        {
+        //public JsonResult GetCountries()
+        //{
 
-            using (var db = GetContxt())
-            {
-                try
-                {
+        //    using (var db = GetContxt())
+        //    {
+        //        try
+        //        {
 
-                    var eventCountryList = db.Database.SqlQuery<LocationModel>(String.Format("Location.spGetCountries")).ToList();
-                    return new JsonResult { Data = eventCountryList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //            var eventCountryList = db.Database.SqlQuery<LocationModel>(String.Format("Location.spGetCountries")).ToList();
+        //            return new JsonResult { Data = eventCountryList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 
-                }
-                catch (Exception)
-                {
+        //        }
+        //        catch (Exception)
+        //        {
 
-                    throw;
-                }
-            }
+        //            throw;
+        //        }
+        //    }
 
-        }
+        //}
 
-        public JsonResult GetProvinces()
-        {
-            using (var db = GetContxt())
-            {
-                try
-                {
-                    var eventProvinces = db.Database.SqlQuery<LocationModel>(String.Format("Location.spGetProvinces")).ToList();
-                    return new JsonResult { Data = eventProvinces, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
-                catch (Exception)
-                {
+        //public JsonResult GetProvinces()
+        //{
+        //    using (var db = GetContxt())
+        //    {
+        //        try
+        //        {
+        //            var eventProvinces = db.Database.SqlQuery<LocationModel>(String.Format("Location.spGetProvinces")).ToList();
+        //            return new JsonResult { Data = eventProvinces, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //        }
+        //        catch (Exception)
+        //        {
 
-                    throw;
-                }
-            }
-        }
+        //            throw;
+        //        }
+        //    }
+        //}
 
         public JsonResult GetCities()
         {
