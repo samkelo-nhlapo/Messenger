@@ -8,38 +8,39 @@
 
 @using (Html.BeginForm("SaveBook", "Home", FormMethod.Post, new { @id = "frmHome" }))
 {
-    <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
+    <hr />
+    <div class="row">
+        <div class="col-xs-12">
 
-    @*<div class="row">
-        <label>Countries</label>
-        @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>()
-             { new SelectListItem()
-               {
-                 Value = Model.CountryId,
-                 Text = Model.CountryDescripition,
-                 Selected = true
-               }
-             }, "0", new { id = "ddlGetCountries", @class = "select-block" })
+            <div class="row">
+                <label>Countries</label>
+                @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>()
+                     { new SelectListItem()
+                       {
+                         Value = Model.CountryId,
+                         Text = Model.CountryDescripition,
+                         Selected = true
+                       }
+                     }, "0", new { id = "ddlGetCountries", @class = "select-block" })
+            </div>
+
+            <div class="row">
+                <label>Provinces</label>
+                @Html.DropDownListFor(x => x.ProvinceId, new List<SelectListItem>()
+                    { new SelectListItem()
+                        {
+                            Value = Model.ProvinceId,
+                            Text = Model.ProvinceDescription,
+                            Selected = true
+                        }
+                    }, "0", new { id = "ddlGetProvinces", @class = "select-block" })
+
+            </div>
+        </div>
     </div>
     
-    <div class="row">
-        <label>Provinces</label>
-        @Html.DropDownListFor(x => x.ProvinceId, new List<SelectListItem>()
-            { new SelectListItem()
-                {
-                    Value = Model.ProvinceId,
-                    Text = Model.ProvinceDescription,
-                    Selected = true
-                }
-            },"0", new {id = "ddlGetProvinces", @class = "select-block" })
-            
-    </div>*@
 
-    <div class="row">
+    @*<div class="row">
         <label>Cities</label>
         @Html.DropDownListFor(x => x.CityID, new List<SelectListItem>() 
             { new SelectListItem() 
@@ -49,7 +50,7 @@
                     Selected = true
                 } 
             },"0", new {id = "ddlGetCities", @class = "select-block" })
-    </div>
+    </div>*@
     
 
 }
@@ -57,60 +58,33 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        //debugger
-        //$.ajax(
-        //    {
-        //        url: '/Home/GetCountries',
-        //        dataType: "json",
-        //        type: "GET",
-        //        cache: true,
-        //        async: true,
-        //        global: false,
-        //        success: function (data) {
-        //            var items = "<option value ='" + "0" + "'>" + "Select Country" + "</option>";
-        //            $.each(data, function (i, value) {
-        //                items += "<option value ='" + value.CountryId + "'>" + value.CountryDescripition + "</option>"
-
-        //                $('#ddlGetCountries').html(items);
-        //            })
-        //            //alert("was successful");
-        //        },
-        //        error: function (xhr) {
-        //            alert("was not successful");
-        //        }
-        //    }
-        //)
-
-        //$.ajax(
-        //    {
-        //        url: '/Home/GetProvinces',
-        //        dataType: "json",
-        //        type: "GET",
-        //        cache: true,
-        //        async: true,
-        //        global: false,
-        //        success: function (data)
-        //        {
-        //            var items = "<option value ='" + "0" + "'>" + "Select Province" + "</option>";
-        //            $.each(data, function (i, value)
-        //            {
-        //                items += "<option value ='" + value.ProvinceId + "'>" + value.ProvinceDescription + "</option>";
-
-        //                $('#ddlGetProvinces').html(items);
-        //            })
-        //            //alert("wass successful");
-        //        },
-        //        error: function (xhr)
-        //        {
-        //            alert("was not successful");
-        //        }
-        //    }
-        //)
-
         debugger
         $.ajax(
             {
-                url: '/Home/GetCities',
+                url: '/Home/GetCountries',
+                dataType: "json",
+                type: "GET",
+                cache: true,
+                async: true,
+                global: false,
+                success: function (data) {
+                    var items = "<option value ='" + "0" + "'>" + "Select Country" + "</option>";
+                    $.each(data, function (i, value) {
+                        items += "<option value ='" + value.CountryId + "'>" + value.CountryDescripition + "</option>"
+
+                        $('#ddlGetCountries').html(items);
+                    })
+                    //alert("was successful");
+                },
+                error: function (xhr) {
+                    alert("was not successful");
+                }
+            }
+        )
+
+        $.ajax(
+            {
+                url: '/Home/GetProvinces',
                 dataType: "json",
                 type: "GET",
                 cache: true,
@@ -118,24 +92,51 @@
                 global: false,
                 success: function (data)
                 {
-                    //alert("was successful");
-
-                    var items = "<option value ='" + "0" + "'>" + "select City" + "</option>";
-
+                    var items = "<option value ='" + "0" + "'>" + "Select Province" + "</option>";
                     $.each(data, function (i, value)
                     {
-                        items += "<option value ='" + value.CityID + "'>" + value.CityName + "</option>";
+                        items += "<option value ='" + value.ProvinceId + "'>" + value.ProvinceDescription + "</option>";
 
-                        $('#ddlGetCities').html(items);
+                        $('#ddlGetProvinces').html(items);
                     })
-                    
+                    //alert("wass successful");
                 },
-                error: function(xhr)
+                error: function (xhr)
                 {
                     alert("was not successful");
                 }
             }
         )
+
+        //debugger
+        //$.ajax(
+        //    {
+        //        url: '/Home/GetCities',
+        //        dataType: "json",
+        //        type: "GET",
+        //        cache: true,
+        //        async: true,
+        //        global: false,
+        //        success: function (data)
+        //        {
+        //            //alert("was successful");
+        //
+        //            var items = "<option value ='" + "0" + "'>" + "select City" + "</option>";
+        //
+        //            $.each(data, function (i, value)
+        //            {
+        //                items += "<option value ='" + value.CityID + "'>" + value.CityName + "</option>";
+        //
+        //                $('#ddlGetCities').html(items);
+        //            })
+        //            
+        //        },
+        //        error: function(xhr)
+        //        {
+        //            alert("was not successful");
+        //        }
+        //    }
+        //)
         
     })
 
