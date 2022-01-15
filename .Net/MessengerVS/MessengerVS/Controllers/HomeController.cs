@@ -21,7 +21,7 @@ namespace MessengerVS.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "This is a web application that allows users to send and recieve messages ";
 
             return View();
         }
