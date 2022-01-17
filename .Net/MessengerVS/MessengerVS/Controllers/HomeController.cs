@@ -6,6 +6,10 @@ using System.Web.Mvc;
 using MessengerVS.Repo;
 using MessengerVS.Models;
 using System.Threading;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
+using MessengerVS.Models;
 
 namespace MessengerVS.Controllers
 {
@@ -87,6 +91,30 @@ namespace MessengerVS.Controllers
         //        }
         //    }
         //}
+        public JsonResult SaveContacts(LocationModel locationModel)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MessengerEntity"].ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("Contacts.spAddContacts", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add(new SqlParameter("@PhoneNumber", locationModel.PhoneNumber));
+                cmd.Parameters.Add(new SqlParameter("@PhoneTypeID", Int32.Parse(locationModel.PhonetypeId)));
+                cmd.Parameters.Add(new SqlParameter("@Email", locationModel.Email));
+                cmd.Parameters.Add(new SqlParameter("@EmailType", locationModel.EmailType));
+
+                cmd.Parameters.Add(new SqlParameter("@Message", SqlDbType.VarChar, 250)).Direction = ParameterDirection.Output;
+
+                connection.Open();
+
+                cmd.ExecuteNonQuery();
+
+                locationModel.Message = Convert.ToString(cmd.Parameters["@Message"].Value);
+
+                connection.Close();
+            }
+            return new JsonResult { Data = locationModel, JsonRequestBehavior=JsonRequestBehavior.AllowGet };
+        }
 
         public static Contxt GetContxt()
         {

@@ -18,5 +18,12 @@ namespace MessengerVS.Models
         //spGetCities
         public string CityID { get; set; }
         public string CityName { get; set; }
+
+        //Contacts 
+        public string PhoneNumber { get; set; }
+        public string PhonetypeId { get; set; }
+        public string Email { get; set; }
+        public string EmailType { get; set; }
+        public string Message { get; set; }
     }
 }

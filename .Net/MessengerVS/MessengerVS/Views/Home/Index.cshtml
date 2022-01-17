@@ -13,6 +13,28 @@
         <div class="col-xs-12">
 
             <div class="row">
+                <label>Phone Number</label>
+                @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "select-block" })
+
+            </div>
+
+            <div class="row">
+                <label>Phone Type</label>
+                @Html.DropDownListFor(x => x.PhonetypeId, new List<SelectListItem>() 
+                    { new SelectListItem()
+                        {
+                            Value = Model.PhonetypeId,
+                            Text = Model.PhonetypeId
+                        } 
+                    }
+            </div>
+
+            <div class="row">
+                <label>Email</label>
+                @Html.TextBoxFor(x => x.Email, new { @class = "select-block" })
+            </div>
+
+            <div class="row">
                 <label>Countries</label>
                 @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>()
                      { new SelectListItem()
@@ -107,6 +129,7 @@
                 }
             }
         )
+
 
         //debugger
         //$.ajax(
