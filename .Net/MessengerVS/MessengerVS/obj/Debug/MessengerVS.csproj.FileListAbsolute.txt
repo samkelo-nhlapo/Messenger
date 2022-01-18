@@ -102,3 +102,5 @@ C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\bin\Microsoft.CodeDom.
 C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\obj\Debug\MessengerVS.dll
 C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\obj\Debug\MessengerVS.pdb
 C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\obj\Debug\MessengerVS.csproj.CopyComplete
+C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\bin\System.Data.SqlClient.dll
+C:\Users\Sam\Music\Messanger\.Net\MessengerVS\MessengerVS\bin\System.Data.SqlClient.xml

@@ -91,6 +91,8 @@ namespace MessengerVS.Controllers
         //        }
         //    }
         //}
+
+        [HttpPost]
         public JsonResult SaveContacts(LocationModel locationModel)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MessengerEntity"].ConnectionString))
@@ -101,7 +103,7 @@ namespace MessengerVS.Controllers
                 cmd.Parameters.Add(new SqlParameter("@PhoneNumber", locationModel.PhoneNumber));
                 cmd.Parameters.Add(new SqlParameter("@PhoneTypeID", Int32.Parse(locationModel.PhonetypeId)));
                 cmd.Parameters.Add(new SqlParameter("@Email", locationModel.Email));
-                cmd.Parameters.Add(new SqlParameter("@EmailType", locationModel.EmailType));
+                cmd.Parameters.Add(new SqlParameter("@EmailType", Int32.Parse(locationModel.EmailType)));
 
                 cmd.Parameters.Add(new SqlParameter("@Message", SqlDbType.VarChar, 250)).Direction = ParameterDirection.Output;
 

@@ -17,16 +17,17 @@
                 @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "select-block" })
 
             </div>
-
             <div class="row">
                 <label>Phone Type</label>
-                @Html.DropDownListFor(x => x.PhonetypeId, new List<SelectListItem>() 
-                    { new SelectListItem()
-                        {
-                            Value = Model.PhonetypeId,
-                            Text = Model.PhonetypeId
-                        } 
-                    }
+                @Html.TextBoxFor(x => x.PhonetypeId, new { @class = "select-block" })
+            </div>
+            <div class="row">
+                <label>Email</label>
+                @Html.TextBoxFor(x => x.Email, new { @class = "select-block" })
+            </div>
+            <div class="row">
+                <label>Email type</label>
+                @Html.TextBoxFor(x => x.EmailType, new { @class = "select-block" })
             </div>
 
             <div class="row">
@@ -127,6 +128,28 @@
                 {
                     alert("was not successful");
                 }
+            }
+        )
+
+        debugger
+        $.ajax
+        (
+            {
+                url: '/Home/SaveContacts',
+                dataType: "json",
+                type: "POST",
+                data: $("frmHome").serialize(),
+                async: false,
+                error: function (xhr, status, error)
+                {
+                    alert("inside was not successful " + xhr.value + " " + error.value);
+                },
+                success: function ()
+                {
+                    alert("information saved");
+                }
+
+
             }
         )
 
