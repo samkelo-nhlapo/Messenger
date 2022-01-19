@@ -9,7 +9,6 @@ using System.Threading;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
-using MessengerVS.Models;
 
 namespace MessengerVS.Controllers
 {
@@ -97,7 +96,7 @@ namespace MessengerVS.Controllers
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MessengerEntity"].ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("Contacts.spAddContacts", connection);
+                SqlCommand cmd = new SqlCommand("[Contacts].[spAddContacts]", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add(new SqlParameter("@PhoneNumber", locationModel.PhoneNumber));

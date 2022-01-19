@@ -116,6 +116,7 @@
                 success: function (data)
                 {
                     var items = "<option value ='" + "0" + "'>" + "Select Province" + "</option>";
+
                     $.each(data, function (i, value)
                     {
                         items += "<option value ='" + value.ProvinceId + "'>" + value.ProvinceDescription + "</option>";
@@ -138,7 +139,7 @@
                 url: '/Home/SaveContacts',
                 dataType: "json",
                 type: "POST",
-                data: $("frmHome").serialize(),
+                data: $("#frmHome").serialize(),
                 async: false,
                 error: function (xhr, status, error)
                 {
