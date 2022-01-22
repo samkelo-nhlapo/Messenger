@@ -59,21 +59,23 @@
                     }, "0", new { id = "ddlGetProvinces", @class = "select-block" })
 
             </div>
+
+            <div class="row">
+                <label>Cities</label>
+                @Html.DropDownListFor(x => x.CityID, new List<SelectListItem>()
+                    { new SelectListItem()
+                        {
+                            Value = Model.CityID,
+                            Text = Model.CityName,
+                            Selected = true
+                        }
+                    }, "0", new { id = "ddlGetCities", @class = "select-block" })
+            </div>
         </div>
     </div>
     
 
-    @*<div class="row">
-        <label>Cities</label>
-        @Html.DropDownListFor(x => x.CityID, new List<SelectListItem>() 
-            { new SelectListItem() 
-                { 
-                    Value = Model.CityID, 
-                    Text = Model.CityName, 
-                    Selected = true
-                } 
-            },"0", new {id = "ddlGetCities", @class = "select-block" })
-    </div>*@
+   
     
 
 }
@@ -127,7 +129,37 @@
                 },
                 error: function (xhr)
                 {
-                    alert("was not successful");
+                    alert("was not successful from Provinces");
+                }
+            }
+        )
+
+        debugger
+        $.ajax(
+            {
+                url: '/Home/GetCities',
+                dataType: "json",
+                type: "GET",
+                cache: true,
+                async: true,
+                global: false,
+                success: function (data)
+                {
+                    //alert("was successful");
+        
+                    var items = "<option value ='" + "0" + "'>" + "select City" + "</option>";
+        
+                    $.each(data, function (i, value)
+                    {
+                        items += "<option value ='" + value.CityID + "'>" + value.CityName + "</option>";
+        
+                        $('#ddlGetCities').html(items);
+                    })
+                    
+                },
+                error: function(xhr)
+                {
+                    alert("was not successful from Cities");
                 }
             }
         )
@@ -143,7 +175,8 @@
                 async: false,
                 error: function (xhr, status, error)
                 {
-                    alert("inside was not successful " + xhr.value + " " + error.value);
+
+                    alert("inside was not successful " + xhr.value + " " + error.value + "" + status.value);
                 },
                 success: function ()
                 {
@@ -153,37 +186,6 @@
 
             }
         )
-
-
-        //debugger
-        //$.ajax(
-        //    {
-        //        url: '/Home/GetCities',
-        //        dataType: "json",
-        //        type: "GET",
-        //        cache: true,
-        //        async: true,
-        //        global: false,
-        //        success: function (data)
-        //        {
-        //            //alert("was successful");
-        //
-        //            var items = "<option value ='" + "0" + "'>" + "select City" + "</option>";
-        //
-        //            $.each(data, function (i, value)
-        //            {
-        //                items += "<option value ='" + value.CityID + "'>" + value.CityName + "</option>";
-        //
-        //                $('#ddlGetCities').html(items);
-        //            })
-        //            
-        //        },
-        //        error: function(xhr)
-        //        {
-        //            alert("was not successful");
-        //        }
-        //    }
-        //)
         
     })
 
