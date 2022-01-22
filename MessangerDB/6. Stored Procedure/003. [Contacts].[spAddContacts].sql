@@ -8,9 +8,12 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-
-
-
+--================================================================================================
+--	Author:		Samkelo Nhlapo
+--	Create date	22/01/2022
+--	Description	Save Contacts 
+--	TFS Task	Add Phone, Email and Contact Details 
+--================================================================================================
 
 
 ALTER     PROC [Contacts].[spAddContacts]
@@ -43,6 +46,7 @@ SET NOCOUNT ON
 
 	BEGIN TRY 
 		
+		/*Email verification */
 		IF NOT EXISTS (SELECT 1 FROM Contacts.Emails WITH(NOLOCK) WHERE EmailDescription = @Email)
 		BEGIN
 			
@@ -84,7 +88,8 @@ SET NOCOUNT ON
 		BEGIN
 			
 			SET @IsActive = 1
-
+			
+			--Save contact (Email and Phone Details to Contacts Table)
 			INSERT INTO Contacts.Contacts
 			(
 				ContactID, 

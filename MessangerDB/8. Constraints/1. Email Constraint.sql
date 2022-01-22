@@ -10,4 +10,6 @@ GO
 ================================================================================
 */
 
-ALTER TABLE Contacts.Emails ADD CONSTRAINT chk_eMail CHECK( EmailDescription LIKE '%_@__%.__%')
+ALTER TABLE Contacts.Emails 
+ADD CONSTRAINT chk_email 
+CHECK( EmailDescription LIKE '%_@__%.__%')
