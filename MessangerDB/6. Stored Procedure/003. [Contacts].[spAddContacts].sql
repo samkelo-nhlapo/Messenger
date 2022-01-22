@@ -18,7 +18,7 @@ GO
 
 ALTER     PROC [Contacts].[spAddContacts]
 (
-	@PhoneNumber VARCHAR(12) = '',
+	@PhoneNumber VARCHAR(10) = '',
 	@PhoneTypeID INT = 1,
 	@Email VARCHAR(250) = '',
 	@EmailType INT = 1,
