@@ -60,7 +60,7 @@
 
             </div>
 
-            <div class="row">
+            @*<div class="row">
                 <label>Cities</label>
                 @Html.DropDownListFor(x => x.CityID, new List<SelectListItem>()
                     { new SelectListItem()
@@ -70,7 +70,7 @@
                             Selected = true
                         }
                     }, "0", new { id = "ddlGetCities", @class = "select-block" })
-            </div>
+            </div>*@
         </div>
     </div>
 
@@ -130,35 +130,35 @@
             }
         )
 
-        debugger
-        $.ajax(
-            {
-                url: '/Home/GetCities',
-                dataType: "json",
-                type: "GET",
-                cache: true,
-                async: true,
-                global: false,
-                success: function (data)
-                {
-                    alert("was successful at Cities");
+        //debugger
+        //$.ajax(
+        //    {
+        //        url: '/Home/GetCities',
+        //        dataType: "json",
+        //        type: "GET",
+        //        cache: true,
+        //        async: true,
+        //        global: false,
+        //        success: function (data)
+        //        {
+        //            alert("was successful at Cities");
         
-                    //var items = "<option value ='" + "0" + "'>" + "select City" + "</option>";
+        //            var items = "<option value ='" + "0" + "'>" + "select City" + "</option>";
         
-                    //$.each(data, function (i, value)
-                    //{
-                    //    items += "<option value ='" + value.CityID + "'>" + value.CityName + "</option>";
+        //            $.each(data, function (i, value)
+        //            {
+        //                items += "<option value ='" + value.CityID + "'>" + value.CityName + "</option>";
         
-                    //    $('#ddlGetCities').html(items);
-                    //})
+        //                $('#ddlGetCities').html(items);
+        //            })
                     
-                },
-                error: function(xhr, status, error)
-                {
-                    alert("was not successful from Cities " + xhr.value + " " + status.value + " " + error.value );
-                }
-            }
-        )
+        //        },
+        //        error: function(xhr, status, error)
+        //        {
+        //            alert("was not successful from Cities " + xhr.value + " " + status.value + " " + error.value );
+        //        }
+        //    }
+        //)
 
         debugger
         $.ajax

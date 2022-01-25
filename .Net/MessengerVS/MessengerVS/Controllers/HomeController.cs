@@ -74,22 +74,22 @@ namespace MessengerVS.Controllers
             }
         }
 
-        public JsonResult GetCities()
-        {
-            using (var db = GetContxt())
-            {
-                try
-                {
-                    var eventCities = db.Database.SqlQuery<LocationModel>(String.Format("Location.spGetCities")).ToList();
-                    return new JsonResult { Data = eventCities,JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                }
-                catch (Exception)
-                {
+        //public JsonResult GetCities()
+        //{
+        //    using (var db = GetContxt())
+        //    {
+        //        try
+        //        {
+        //            var eventCities = db.Database.SqlQuery<LocationModel>(String.Format("Location.spGetCities")).ToList();
+        //            return new JsonResult { Data = eventCities,JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //        }
+        //        catch (Exception)
+        //        {
 
-                    throw;
-                }
-            }
-        }
+        //            throw;
+        //        }
+        //    }
+        //}
 
         [HttpPost]
         public JsonResult SaveContacts(LocationModel locationModel)
