@@ -1,4 +1,4 @@
-USE Messenger
+USE PatientEnrollment
 GO
 
 /*

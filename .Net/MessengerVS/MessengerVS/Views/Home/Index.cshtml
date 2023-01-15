@@ -89,12 +89,14 @@
                 async: true,
                 global: false,
                 success: function (data) {
+
                     var items = "<option value ='" + "0" + "'>" + "Select Country" + "</option>";
                     $.each(data, function (i, value) {
                         items += "<option value ='" + value.CountryId + "'>" + value.CountryDescripition + "</option>"
 
                         $('#ddlGetCountries').html(items);
                     })
+
                     //alert("was successful");
                 },
                 error: function (xhr) {
